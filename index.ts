@@ -17,15 +17,15 @@ type MyComponentArgs = {
 };
 
 class MyComponent extends pulumi.ComponentResource {
-  private readonly secret: pulumi.Output<string>;
-  private readonly plaintext: pulumi.Output<string>;
+  private readonly secretProp: pulumi.Output<string>;
+  private readonly plaintextProp: pulumi.Output<string>;
   constructor(name: string, args: MyComponentArgs, opts: pulumi.ComponentResourceOptions) {
     super("pkg:index:MyComponent", name, args, opts);
-    this.plaintext = pulumi.output(args.plaintext);
-    this.secret = pulumi.output(args.secret);
+    this.plaintextProp = pulumi.output(args.plaintext);
+    this.secretProp = pulumi.output(args.secret);
     this.registerOutputs({
-      secret: this.secret,
-      plaintext: this.plaintext,
+      secretProp: this.secretProp,
+      plaintextProp: this.plaintextProp,
     });
   }
 }
@@ -33,12 +33,12 @@ class MyComponent extends pulumi.ComponentResource {
 const run = async () => {
   const pulumiProgram = async () => {
     const config = new pulumi.Config()
-    const plaintext = config.require("my-plaintext-key");
-    const secret = config.requireSecret("my-secret-key");
-    const myComponent = new MyComponent("myComponent", { secret, plaintext }, { parent: pulumi.rootStackResource });
+    const myPlaintext = config.require("my-plaintext-key");
+    const mySecret = config.requireSecret("my-secret-key");
+    const myComponent = new MyComponent("myComponent", { secret: mySecret, plaintext: myPlaintext }, { parent: pulumi.rootStackResource });
     return {
-      plaintext,
-      secret,
+      myPlaintext,
+      mySecret,
       myComponent,
     };
   };
