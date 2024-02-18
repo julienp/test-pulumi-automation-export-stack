@@ -1,0 +1,16 @@
+{
+  "name": "test-pulumi-automation-install",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "./node_modules/ts-node/dist/bin.js index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@pulumi/pulumi": "^3.106.0",
+    "@types/node": "^14.11.7"
+  }
+}
